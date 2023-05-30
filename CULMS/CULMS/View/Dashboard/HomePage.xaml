@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CULMS.View.Dashboard.HomePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:partialview="clr-namespace:CULMS.View.PartialView"
+    xmlns:vm="clr-namespace:CULMS.ViewModel.DashboardVM"
+    BackgroundColor="#0d0f12"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:HomePageVM x:Name="vm" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid RowDefinitions="*,60" RowSpacing="0">
+                <ScrollView
+                    Grid.Row="0"
+                    VerticalOptions="FillAndExpand"
+                    VerticalScrollBarVisibility="Never">
+                    <StackLayout>
+                        <Grid
+                            Margin="16,16,16,0"
+                            HeightRequest="110"
+                            IsClippedToBounds="True">
+                            <Image Aspect="AspectFill" Source="course1" />
+                            <Frame
+                                BackgroundColor="Black"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                IsClippedToBounds="True"
+                                Opacity=".6" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="22"
+                                HorizontalTextAlignment="Center"
+                                Text="NEW &#10;RELEASES"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+                        <Grid
+                            Margin="16,16,16,0"
+                            HeightRequest="110"
+                            IsClippedToBounds="True">
+                            <Image Aspect="AspectFill" Source="course2" />
+                            <Frame
+                                BackgroundColor="Black"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                IsClippedToBounds="True"
+                                Opacity=".6" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="22"
+                                HorizontalTextAlignment="Center"
+                                Text="RECOMMENDED &#10;FOR YOU"
+                                TextColor="White"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+                        <Label
+                            Margin="16,16,16,0"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            Text="Popular skills"
+                            TextColor="White" />
+                        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+                            <StackLayout
+                                Margin="16,0,16,0"
+                                BindableLayout.ItemsSource="{Binding PopularSkillsList}"
+                                HeightRequest="50"
+                                Orientation="Horizontal">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame
+                                            Padding="0"
+                                            BackgroundColor="#2c3238"
+                                            CornerRadius="14"
+                                            HasShadow="False"
+                                            HeightRequest="28"
+                                            HorizontalOptions="StartAndExpand"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Label
+                                                Margin="20,0"
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="{Binding Skills}"
+                                                TextColor="White"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </ScrollView>
+                        <CollectionView
+                            x:Name="CourcesList"
+                            Margin="16,5,16,0"
+                            HeightRequest="200"
+                            ItemsSource="{Binding CourcesList}">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout
+                                    HorizontalItemSpacing="10"
+                                    Orientation="Horizontal"
+                                    Span="2"
+                                    VerticalItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid
+                                        x:Name="CourseMainGrid"
+                                        HeightRequest="110"
+                                        IsClippedToBounds="True">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference CourcesList}, Path=BindingContext.AllCourseCommand}" CommandParameter="{Binding Source={x:Reference CourseMainGrid}, Path=BindingContext}" />
+                                        </Grid.GestureRecognizers>
+                                        <Image Aspect="AspectFill" Source="{Binding CourseImage}" />
+                                        <Frame
+                                            BackgroundColor="Black"
+                                            CornerRadius="0"
+                                            HasShadow="False"
+                                            IsClippedToBounds="True"
+                                            Opacity=".6" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="22"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{Binding CourseName}"
+                                            TextColor="White"
+                                            VerticalTextAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Grid Margin="16,16,16,0">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                Text="Paths"
+                                TextColor="White"
+                                VerticalOptions="CenterAndExpand"
+                                VerticalTextAlignment="Center" />
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="#2c3238"
+                                CornerRadius="12"
+                                HasShadow="False"
+                                HeightRequest="24"
+                                HorizontalOptions="EndAndExpand"
+                                VerticalOptions="CenterAndExpand">
+                                <Label
+                                    Margin="15,0"
+                                    FontSize="14"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="See all"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </Frame>
+                        </Grid>
+                        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+                            <StackLayout
+                                Margin="16,10,0,16"
+                                BindableLayout.ItemsSource="{Binding PathList}"
+                                Orientation="Horizontal"
+                                Spacing="15">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame
+                                            Padding="0"
+                                            BackgroundColor="#171b1f"
+                                            CornerRadius="10"
+                                            HasShadow="False"
+                                            HeightRequest="150"
+                                            HorizontalOptions="StartAndExpand"
+                                            IsClippedToBounds="True"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="200">
+                                            <Grid
+                                                IsClippedToBounds="True"
+                                                RowDefinitions="50*,2*,48*"
+                                                RowSpacing="0">
+                                                <Image
+                                                    BackgroundColor="Transparent"
+                                                    HeightRequest="50"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    Source="{Binding CourseImage}"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="50" />
+                                                <BoxView
+                                                    Grid.Row="1"
+                                                    BackgroundColor="#444b53"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="CenterAndExpand" />
+                                                <StackLayout
+                                                    Grid.Row="2"
+                                                    Background="#2c3138"
+                                                    IsClippedToBounds="True">
+                                                    <Label
+                                                        Margin="5"
+                                                        Text="Serverless Data Processing with Dataflow"
+                                                        TextColor="White" />
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </ScrollView>
+
+                    </StackLayout>
+                </ScrollView>
+                <partialview:TabbedView Grid.Row="1" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
