@@ -22,6 +22,9 @@
                             Margin="16,16,16,0"
                             HeightRequest="110"
                             IsClippedToBounds="True">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NewCourseCommand}" />
+                            </Grid.GestureRecognizers>
                             <Image Aspect="AspectFill" Source="course1" />
                             <Frame
                                 BackgroundColor="Black"
@@ -33,7 +36,7 @@
                                 FontAttributes="Bold"
                                 FontSize="22"
                                 HorizontalTextAlignment="Center"
-                                Text="NEW &#10;RELEASES"
+                                Text="NEW &#10;COURSES"
                                 TextColor="White"
                                 VerticalTextAlignment="Center" />
                         </Grid>
@@ -60,7 +63,7 @@
                             Margin="16,16,16,0"
                             FontAttributes="Bold"
                             FontSize="18"
-                            Text="Popular skills"
+                            Text="Popular Courses"
                             TextColor="White" />
                         <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
                             <StackLayout
@@ -129,7 +132,7 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                        <Grid Margin="16,16,16,0">
+                        <!--<Grid Margin="16,16,16,0">
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="18"
@@ -153,8 +156,8 @@
                                     TextColor="White"
                                     VerticalTextAlignment="Center" />
                             </Frame>
-                        </Grid>
-                        <ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
+                        </Grid>-->
+                        <!--<ScrollView HorizontalScrollBarVisibility="Never" Orientation="Horizontal">
                             <StackLayout
                                 Margin="16,10,0,16"
                                 BindableLayout.ItemsSource="{Binding PathList}"
@@ -202,8 +205,7 @@
                                     </DataTemplate>
                                 </BindableLayout.ItemTemplate>
                             </StackLayout>
-                        </ScrollView>
-
+                        </ScrollView>-->
                     </StackLayout>
                 </ScrollView>
                 <partialview:TabbedView Grid.Row="1" />

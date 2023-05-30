@@ -1,10 +1,8 @@
 ﻿using CULMS.Helpers;
 using CULMS.View.Auth;
 using CULMS.View.Dashboard;
-using System;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace CULMS
 {
@@ -16,7 +14,7 @@ namespace CULMS
             var isLogin = Preferences.Get(StringConstant.IsLogin, false);
             if (isLogin)
             {
-                MainPage = new AllCoursePage();
+                MainPage = new HomePage();
             }
             else
             {

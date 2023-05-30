@@ -85,20 +85,27 @@ namespace CULMS.ViewModel.DashboardVM
         {
             return new ObservableCollection<CommonModel>()
             {
-                new CommonModel {Skills = "Angular"},
-                new CommonModel {Skills = "JavaScript"},
-                new CommonModel {Skills = "C#"},
-                new CommonModel {Skills = "JAVA"},
-                new CommonModel {Skills = "React"},
-                new CommonModel {Skills = "NodeJS"},
-                new CommonModel {Skills = "React Native"},
-                new CommonModel {Skills = "XAML"},
-                new CommonModel {Skills = "ReactJS"},
+                new CommonModel {Skills = "MBA"},
+                new CommonModel {Skills = "B.Tech"},
+                new CommonModel {Skills = "Hotel Management"},
+                new CommonModel {Skills = "Animaton and Design"},
+                new CommonModel {Skills = "Arts"},
+                new CommonModel {Skills = "Commerce"},
+                new CommonModel {Skills = "Computer Applications and IT"},
+                new CommonModel {Skills = "Education"},
+                new CommonModel {Skills = "Law"},
+                new CommonModel {Skills = "Pharmacy"},
+                new CommonModel {Skills = "Media"},
             };
         }
         #endregion
 
         #region Commands
+
+        public Command NewCourseCommand => new Command(() =>
+        {
+            Application.Current.MainPage.Navigation.PushModalAsync(new NewCoursesPage());
+        });
 
         public Command AllCourseCommand => new Command(async () =>
         {
@@ -111,9 +118,9 @@ namespace CULMS.ViewModel.DashboardVM
             {
                 Crashes.TrackError(ex);
             }
-            finally 
+            finally
             {
-                IsLoading = false; 
+                IsLoading = false;
             }
         });
         #endregion
