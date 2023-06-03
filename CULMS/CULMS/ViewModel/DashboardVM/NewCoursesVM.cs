@@ -1,7 +1,8 @@
 ﻿using CULMS.Helpers;
 using CULMS.Model;
-using System;
+using CULMS.View.Dashboard;
 using System.Collections.ObjectModel;
+using Xamarin.Forms;
 
 namespace CULMS.ViewModel.DashboardVM
 {
@@ -47,6 +48,11 @@ namespace CULMS.ViewModel.DashboardVM
         #endregion
 
         #region Commands
+
+        public Command VideoCommand => new Command(async() =>
+        {
+           await Application.Current.MainPage.Navigation.PushModalAsync(new VideoPage());
+        });
 
         #endregion
     }

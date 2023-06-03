@@ -4,6 +4,9 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Octane.Xamarin.Forms.VideoPlayer.Android;
+using Xamarin.Forms;
+using CULMS.ViewModel.DashboardVM;
 
 namespace CULMS.Droid
 {
@@ -16,7 +19,16 @@ namespace CULMS.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            FormsVideoPlayer.Init();
             LoadApplication(new App());
+            MessagingCenter.Subscribe<VideoPageVM>(this, "SetLandscapeModeOn", sender =>
+            {
+                RequestedOrientation = ScreenOrientation.Landscape;
+            });
+            MessagingCenter.Subscribe<VideoPageVM>(this, "SetLandscapeModeOff", sender =>
+            {
+                RequestedOrientation = ScreenOrientation.Portrait;
+            });
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

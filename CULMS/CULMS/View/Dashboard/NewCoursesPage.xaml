@@ -14,11 +14,15 @@
                 <Grid>
                     <Label
                         FontAttributes="Bold"
-                        FontSize="22" 
+                        FontSize="22"
                         HorizontalTextAlignment="Center"
                         Text="New Courses"
                         TextColor="White"
-                        VerticalOptions="CenterAndExpand" />
+                        VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding VideoCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                     <Frame
                         Margin="20,0,0,0"
                         Padding="0"
@@ -45,57 +49,72 @@
                     </Frame>
                 </Grid>
                 <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
-                    <StackLayout
-                        Margin="16,16,16,0"
-                        BindableLayout.ItemsSource="{Binding NewCoursesList}"
-                        Spacing="10">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <Frame
-                                    Padding="0"
-                                    BackgroundColor="#171b1f"
-                                    CornerRadius="10"
-                                    HasShadow="False"
-                                    HeightRequest="250"
-                                    HorizontalOptions="FillAndExpand"
-                                    IsClippedToBounds="True"
-                                    VerticalOptions="CenterAndExpand"
-                                    WidthRequest="200">
-                                    <Grid
+                    <StackLayout>
+                        <StackLayout
+                            x:Name="NewCoursesList"
+                            BackgroundColor="Transparent"
+                            BindableLayout.ItemsSource="{Binding NewCoursesList}"
+                            IsClippedToBounds="True">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <!--<Grid
+                                        x:Name="MainGrid"
+                                        Margin="20"
+                                        BackgroundColor="LightGray"
+                                        IsClippedToBounds="True">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference NewCoursesList}, Path=BindingContext.VideoCommand}" CommandParameter="{Binding Source={x:Reference MainGrid}, Path=BindingContext}" />
+                                        </Grid.GestureRecognizers>-->
+                                    <Frame
+                                        x:Name="MainGrid"
+                                        Padding="0"
+                                        CornerRadius="10"
+                                        HasShadow="False"
+                                        HeightRequest="250"
+                                        HorizontalOptions="FillAndExpand"
                                         IsClippedToBounds="True"
-                                        RowDefinitions="78*,2*,20*"
-                                        RowSpacing="0">
-                                        <Image
-                                            Aspect="Fill"
-                                            BackgroundColor="Transparent"
-                                            Source="{Binding CourseImage}" />
-                                        <BoxView
-                                            Grid.Row="1"
-                                            BackgroundColor="#444b53"
-                                            HorizontalOptions="FillAndExpand"
-                                            VerticalOptions="CenterAndExpand" />
-                                        <StackLayout
-                                            Grid.Row="2"
-                                            Background="#2c3138"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="200">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference NewCoursesList}, Path=BindingContext.VideoCommand}" CommandParameter="{Binding Source={x:Reference MainGrid}, Path=BindingContext}" />
+                                        </Frame.GestureRecognizers>
+                                        <Grid
                                             IsClippedToBounds="True"
-                                            Spacing="0">
-                                            <Label
-                                                Margin="5,5,0,0"
-                                                Text="{Binding CourseName}"
-                                                TextColor="White" />
-                                            <Label Margin="5,0,0,0" TextColor="White">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="End Date: " />
-                                                        <Span Text="28 Dec,2023" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                        </StackLayout>
-                                    </Grid>
-                                </Frame>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
+                                            RowDefinitions="78*,2*,20*"
+                                            RowSpacing="0">
+                                            <Image
+                                                Aspect="Fill"
+                                                BackgroundColor="Transparent"
+                                                Source="{Binding CourseImage}" />
+                                            <BoxView
+                                                Grid.Row="1"
+                                                BackgroundColor="#444b53"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="CenterAndExpand" />
+                                            <StackLayout
+                                                Grid.Row="2"
+                                                Background="#2c3138"
+                                                IsClippedToBounds="True"
+                                                Spacing="0">
+                                                <Label
+                                                    Margin="5,5,0,0"
+                                                    Text="{Binding CourseName}"
+                                                    TextColor="White" />
+                                                <Label Margin="5,0,0,0" TextColor="White">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="End Date: " />
+                                                            <Span Text="28 Dec,2023" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                    <!--</Grid>-->
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
                     </StackLayout>
                 </ScrollView>
             </Grid>

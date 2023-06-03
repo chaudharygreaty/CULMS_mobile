@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CULMS.View.Dashboard.VideoPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer"
+    xmlns:vm="clr-namespace:CULMS.ViewModel.DashboardVM">
+    <ContentPage.BindingContext>
+        <vm:VideoPageVM x:Name="vm" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <o:VideoPlayer
+                x:Name="videoPlayer"
+                Margin="0"
+                AutoPlay="True"
+                DisplayControls="True"
+                FillMode="ResizeAspectFill"
+                HeightRequest="200"
+                HorizontalOptions="FillAndExpand"
+                Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+                VerticalOptions="{Binding VideoVerticalOption}" />
+            <Image
+                x:Name="zoomImage"
+                Margin="20"
+                HeightRequest="30"
+                HorizontalOptions="StartAndExpand"
+                Source="{Binding ZoomImage}"
+                VerticalOptions="StartAndExpand"
+                WidthRequest="30">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ZoomCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

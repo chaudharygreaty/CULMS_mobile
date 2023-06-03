@@ -16747,6 +16747,12 @@ namespace CULMS.Droid
 			// aapt resource value: 0x7F0700AB
 			public const int userIcon = 2131165355;
 			
+			// aapt resource value: 0x7F0700AC
+			public const int zoom_in = 2131165356;
+			
+			// aapt resource value: 0x7F0700AD
+			public const int zoom_out = 2131165357;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
