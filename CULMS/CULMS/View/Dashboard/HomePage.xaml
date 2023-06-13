@@ -132,6 +132,36 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
+                        <Frame
+                            Margin="16"
+                            Padding="0"
+                            BackgroundColor="#2c3238"
+                            CornerRadius="14"
+                            HasShadow="False"
+                            HeightRequest="28"
+                            HorizontalOptions="StartAndExpand"
+                            VerticalOptions="CenterAndExpand">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LogoutCommand}" />
+                            </Frame.GestureRecognizers>
+                            <StackLayout
+                                Margin="8,0"
+                                HorizontalOptions="CenterAndExpand"
+                                Orientation="Horizontal"
+                                VerticalOptions="CenterAndExpand">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    Text="Logout"
+                                    TextColor="White" />
+                                <Image
+                                    HeightRequest="15"
+                                    Source="logout"
+                                    VerticalOptions="CenterAndExpand"
+                                    WidthRequest="15" />
+
+                            </StackLayout>
+                        </Frame>
                         <!--<Grid Margin="16,16,16,0">
                             <Label
                                 FontAttributes="Bold"

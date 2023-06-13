@@ -143,7 +143,8 @@
                             CornerRadius="10"
                             HeightRequest="50">
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding LoginCommand}" Tapped="LoginFrame_Tapped" />
+                                <TapGestureRecognizer Command="{Binding LoginCommand}" /> 
+                                <!--  Tapped="LoginFrame_Tapped"  -->
                             </Frame.GestureRecognizers>
                             <Label
                                 FontAttributes="Bold"

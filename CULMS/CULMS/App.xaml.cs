@@ -15,6 +15,7 @@ namespace CULMS
             if (isLogin)
             {
                 MainPage = new HomePage();
+               // MainPage = new TestPage();
             }
             else
             {

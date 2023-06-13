@@ -1,8 +1,14 @@
 ﻿using CULMS.Helpers;
+using CULMS.Helpers.APIHelper;
+using CULMS.Model;
+using CULMS.Model.RequestModel;
+using CULMS.Model.ResponseModel;
 using CULMS.View.Auth;
 using CULMS.View.Dashboard;
 using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -19,6 +25,7 @@ namespace CULMS.ViewModel.AuthVM
         private bool isVisibleTxtEmailError;
         private string msgEmailError;
         private string email;
+        private string token;
         #endregion
 
         #region Public Properties
@@ -65,6 +72,13 @@ namespace CULMS.ViewModel.AuthVM
         {
             get { return isPassword; }
             set { isPassword = value; OnPropertyChanged(nameof(IsPassword)); }
+        }
+
+
+        public string Token
+        {
+            get { return token; }
+            set { token = value; OnPropertyChanged(nameof(Token)); }
         }
 
         #endregion
@@ -146,16 +160,56 @@ namespace CULMS.ViewModel.AuthVM
             }
         });
 
+        /// <summary>
+        /// Login command
+        /// </summary>
         public Command LoginCommand => new Command(async () =>
         {
             try
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsLoading = true;
-                    Task.Delay(1000);
-                });
+                IsLoading = true;
+                await Task.Delay(1);
                 if (SignInClicked())
+                {
+                    LoginRequestModel loginRequestModel = new LoginRequestModel()
+                    {
+                        UserId = Email,
+                        Password = Password
+                    };
+                    var response = await LoginAPI(loginRequestModel);
+                    if (response != null && response.StatusCode == 200)
+                    {
+                        Token = response.Data.Token;
+                        ValidateTokenMethod();
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Alert", response.Message, "Ok");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        });
+
+        private async void ValidateTokenMethod()
+        {
+            try
+            {
+                //Device.BeginInvokeOnMainThread(() =>
+                //{
+                //    IsLoading = true;
+                //Task.Delay(100000);
+                //});
+                //var tokenValidateresponse = await ValidateTokenApi();
+                var tokenValidateresponse = await ValidateTokenApi();
+                if (tokenValidateresponse.Data != null && tokenValidateresponse.Message == "Ok")
                 {
                     Preferences.Set(StringConstant.TabIdKey, 1);
                     Preferences.Set(StringConstant.IsLogin, true);
@@ -168,9 +222,80 @@ namespace CULMS.ViewModel.AuthVM
             }
             finally
             {
-                IsLoading = true;
+                //Device.BeginInvokeOnMainThread(() =>
+                //{
+                //IsLoading = false;
+                //Task.Delay(1000);
+                //});
             }
-        });
+        }
+        #endregion
+
+        #region API Methods
+
+        //public async Task<AuthResponseObject<TokenValidateData>> ValidateTokenApi()
+        //{
+        //    AuthResponseObject<TokenValidateData> validateresponse = new AuthResponseObject<TokenValidateData>();
+        //    try
+        //    {
+        //        APIService api = new APIService();
+        //        validateresponse = await api.TokenValidateAsync(Token);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Crashes.TrackError(ex);
+        //    }
+        //    return validateresponse;
+        //}
+
+
+        public async Task<LoginResponseModel> LoginAPI(LoginRequestModel attendanceRequest)
+        {
+            LoginResponseModel loginResponse = new LoginResponseModel();
+            try
+            {
+                APICall aPICall = new APICall();
+                string jsonRequest = JsonConvert.SerializeObject(attendanceRequest);
+                var loginUrl = StringConstant.ApiKeyUrl + StringConstant.ApeKeyLogin;
+                var apiResponse = await aPICall.PostRequest(loginUrl, jsonRequest).ConfigureAwait(true);
+                if (apiResponse.IsSuccessStatusCode)
+                {
+                    var apiReponseData = apiResponse.Content.ReadAsStringAsync().Result;
+                    if (!string.IsNullOrEmpty(apiReponseData))
+                    {
+                        loginResponse = JsonConvert.DeserializeObject<LoginResponseModel>(apiReponseData);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            return loginResponse;
+        }
+        public async Task<ValidateTokenResponseModel> ValidateTokenApi()
+        {
+            ValidateTokenResponseModel validateresponse = new ValidateTokenResponseModel();
+            try
+            {
+                APICall aPICall = new APICall();
+                var loginUrl = StringConstant.ApiKeyUrl + StringConstant.ApeKeyValidateToken + Token;
+                var apiResponse = await aPICall.GetRequest(loginUrl,string.Empty).ConfigureAwait(true);
+                if (apiResponse.IsSuccessStatusCode)
+                {
+                    var apiReponseData = apiResponse.Content.ReadAsStringAsync().Result;
+                    if (!string.IsNullOrEmpty(apiReponseData))
+                    {
+                        validateresponse = JsonConvert.DeserializeObject<ValidateTokenResponseModel>(apiReponseData);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            return validateresponse;
+        }
         #endregion
     }
 }

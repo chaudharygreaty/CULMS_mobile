@@ -1,9 +1,12 @@
 ﻿using CULMS.Helpers;
 using CULMS.Model;
+using CULMS.View.Auth;
 using CULMS.View.Dashboard;
 using Microsoft.AppCenter.Crashes;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace CULMS.ViewModel.DashboardVM
@@ -105,6 +108,14 @@ namespace CULMS.ViewModel.DashboardVM
         public Command NewCourseCommand => new Command(() =>
         {
             Application.Current.MainPage.Navigation.PushModalAsync(new NewCoursesPage());
+        });
+        public Command LogoutCommand => new Command(async() =>
+        {
+            IsLoading = true;
+            await Task.Delay(50);
+            Application.Current.MainPage = new LoginPage();
+            Preferences.Set(StringConstant.IsLogin, false);
+            IsLoading = false;
         });
 
         public Command AllCourseCommand => new Command(async () =>

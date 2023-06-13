@@ -1,6 +1,8 @@
 ﻿using CULMS.Helpers;
 using CULMS.Model;
 using CULMS.View.Dashboard;
+using Microsoft.AppCenter.Crashes;
+using System;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
@@ -38,8 +40,10 @@ namespace CULMS.ViewModel.DashboardVM
                 new CommonModel {CourseImage ="Animation", CourseName="Animation"},
                 new CommonModel {CourseImage ="B_Tech", CourseName="B.Tech"},
                 new CommonModel {CourseImage ="commerce", CourseName="Commerce"},
+                new CommonModel {CourseImage ="econtent", CourseName="Pdf available", PDFURL ="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
                 new CommonModel {CourseImage ="mba", CourseName="MBA"},
                 new CommonModel {CourseImage ="Animation", CourseName="Animation"},
+                new CommonModel {CourseImage ="econtent", CourseName="Pdf available", PDFURL="https://www.orimi.com/pdf-test.pdf"},
                 new CommonModel {CourseImage ="B_Tech", CourseName="B.Tech"},
                 new CommonModel {CourseImage ="commerce", CourseName="Commerce"},
                 new CommonModel {CourseImage ="mba", CourseName="MBA"},
@@ -49,9 +53,26 @@ namespace CULMS.ViewModel.DashboardVM
 
         #region Commands
 
-        public Command VideoCommand => new Command(async() =>
+        [System.Obsolete]
+        public Command VideoCommand => new Command(async (param) =>
         {
-           await Application.Current.MainPage.Navigation.PushModalAsync(new VideoPage());
+            try
+            {
+                var data = param as CommonModel;
+                if (data.PDFURL != null)
+                {
+                     await Application.Current.MainPage.Navigation.PushModalAsync(new NewPDFView());
+                    //Device.OpenUri(new Uri(data.PDFURL));
+                }
+                else
+                {
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new VideoPage());
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
         });
 
         #endregion

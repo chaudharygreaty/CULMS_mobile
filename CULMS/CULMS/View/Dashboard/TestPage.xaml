@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CULMS.View.Dashboard.TestPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:CULMS.ViewModel.DashboardVM">
+    <ContentPage.BindingContext>
+        <vm:TestPageVM x:Name="vm" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Margin="10,10,10,0" Spacing="0">
+                <Grid ColumnDefinitions="30*,35*,1,35*" ColumnSpacing="0">
+                    <BoxView
+                        BackgroundColor="LightGray"
+                        HeightRequest="30"
+                        VerticalOptions="StartAndExpand" />
+                    <Label
+                        Grid.Column="1"
+                        BackgroundColor="LightGray"
+                        HeightRequest="30"
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="Center"
+                        Text="Centre 1"
+                        VerticalOptions="StartAndExpand"
+                        VerticalTextAlignment="Center" />
+                    <BoxView
+                        Grid.Column="2"
+                        BackgroundColor="White"
+                        HeightRequest="30"
+                        VerticalOptions="StartAndExpand"
+                        WidthRequest="1" />
+                    <Label
+                        Grid.Column="3"
+                        BackgroundColor="LightGray"
+                        HeightRequest="30"
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="Center"
+                        Text="Centre 1"
+                        VerticalOptions="StartAndExpand"
+                        VerticalTextAlignment="Center" />
+                </Grid>
+                <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
+                    <StackLayout BindableLayout.ItemsSource="{Binding DetailList}" Spacing="0">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    ColumnDefinitions="30*,35*,1,35*,1"
+                                    ColumnSpacing="0"
+                                    RowDefinitions="Auto,1"
+                                    RowSpacing="0">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="LightGray"
+                                        CornerRadius="0"
+                                        HasShadow="False">
+                                        <Label
+                                            Margin="3"
+                                            HorizontalTextAlignment="Center"
+                                            VerticalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Number}" />
+                                                    <Span Text="{Binding Title}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Frame>
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding Centre1}"
+                                        VerticalTextAlignment="Center" />
+                                    <BoxView
+                                        Grid.Column="2"
+                                        BackgroundColor="LightGray"
+                                        WidthRequest="1" />
+                                    <Label
+                                        Grid.Column="3"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding Centre2}"
+                                        VerticalTextAlignment="Center" />
+                                    <BoxView
+                                        Grid.Column="4"
+                                        BackgroundColor="LightGray"
+                                        HorizontalOptions="CenterAndExpand"
+                                        WidthRequest="1" />
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        BackgroundColor="White" />
+                                    <BoxView
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Grid.ColumnSpan="4"
+                                        BackgroundColor="LightGray"
+                                        WidthRequest="1" />
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

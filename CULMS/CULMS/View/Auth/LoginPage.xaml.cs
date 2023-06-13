@@ -17,11 +17,11 @@ namespace CULMS.View.Auth
             InitializeComponent();
         }
 
-        private async void LoginFrame_Tapped(object sender, EventArgs e)
-        {
-            await LoginFrame.ScaleTo(0.75, 100);
-            await LoginFrame.ScaleTo(1, 100);
-        }
+        //private async void LoginFrame_Tapped(object sender, EventArgs e)
+        //{
+        //    await LoginFrame.ScaleTo(0.75, 100);
+        //    await LoginFrame.ScaleTo(1, 100);
+        //}
 
         private async void ForgotPassword_Clicked(object sender, EventArgs e)
         {
